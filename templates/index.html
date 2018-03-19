@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Can you guess the password?</title>
+        <!--Import bootstrap-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- Import d3 -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script> -->
+        <!-- Import Plotly -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="row">
+            <div id="pw-display" class="col-md-12 jumbotron bg-light text-center">
+            </div>
+        </div>
+        <div class="row">
+            <div id="guess-result" class="col-md-12 text-center">
+            </div>
+        </div>
+        <div class="row">
+            <div id="guess-history" class="col-md-7">
+            </div>
+            <div class="col-md-5 text-center">
+                <form id="guess">
+                    <input id="guess-text" type="text" form="guess" placeholder="Your Password Guess" />
+                    <input id="guess-submit" type="submit" form="guess" value="Check Guess" />
+                </form>
+            </div>
+        </div>
+        <script src="{{ url_for('js', filename='mastermind_interaction.js') }}" type="text/javascript"></script>
+    </body>
+    
+</html>
+
+
+
