@@ -1,18 +1,28 @@
 # Dependencies
 import pandas as pd
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
-from flask import Flask, render_template, jsonify
-# from flask_sqlalchemy import SQLAlchemy
+# from sqlalchemy.ext.automap import automap_base
+# from sqlalchemy.orm import Session
+# from sqlalchemy import create_engine
+from flask import Flask, render_template, jsonify, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 import re
 import os
 
 # Flask App
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or 'sqlite:///Instructions/DataSets/belly_button_biodiversity.sqlite'
-# db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or 'sqlite:///db.sqlite'
+db = SQLAlchemy(app)
+
+class game(db.Model):
+    __tablename__ = 'game'
+
+    record_id = db.Column(db.Integer, primary_key=True)
+    player = db.Column(db.String(64))
+    password = guess = db.Column(db.Float)
+    guess = db.Column(db.Float)
+    right_digit = db.Column(db.Float)
+    right_place = db.Column(db.Float)
 
 # # Database Setup
 # sql_alchemy_database_uri = os.environ.get('DATABASE_URL', '') or 'sqlite:///Instructions/DataSets/belly_button_biodiversity.sqlite'
@@ -20,20 +30,11 @@ app = Flask(__name__)
 # Base = automap_base()
 # Base.prepare(engine, reflect = True)
 
-# # bbb = belly button biodiversity
-# # Base.metadata.tables.keys() returns dict_keys(['otu', 'samples', 'samples_metadata'])
-
-# # Save references to table(s)
-# otu = Base.classes.otu
-# samples = Base.classes.samples
-# s_meta = Base.classes.samples_metadata
-
 # # Create Session
 # session = Session(engine)
 
 
 # Create API routes
-# 1- Dashboard homepage
 @app.route('/')
 def home_template():
     return render_template('index.html')
