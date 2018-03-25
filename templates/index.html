@@ -15,38 +15,40 @@
     </head>
     
     <body>
-        <div class="row">
-            <div id="pw-display" class="col-md-12 jumbotron bg-light text-center">
-                
+        <div class="container">
+            <div class="row">
+                <div id="pw-display" class="col-md-12 jumbotron bg-light text-center">
+                    
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="guess-result" class="col-md-12 text-center">
-                <p></p>
+            <div class="row">
+                <div id="guess-result" class="col-md-12 text-center">
+                    <p></p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="guess-history" class="col-md-7">
-                <table class="table border text-center">
-                    <thead>
-                        <tr>
-                            <th></th><th>Guess</th><th>Digit&amp;Place</th><th>Digit, not Place</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="col-md-5 text-center">
-                <!--
-                 Alternate input style where each digit is a dropdown wheel. Slower to input digits, but less input validation needed.
-                <div id="comboLock"></div>
-                <a id="check" class="btn-block btn btn-primary mx-auto w-100 m-2">Guess</a>
-                -->
-                <form id="guess">
-                    <input id="guess-text" type="text" form="guess" placeholder="Your Password Guess" />
-                    <input id="guess-submit" type="submit" form="guess" value="Check Guess" />
-                </form>
-                <button id="forfeit" type="button" class="btn btn-danger">Give Up</button>
+            <div class="row">
+                <div id="guess-history" class="col-md-7">
+                    <table class="table border text-center">
+                        <thead>
+                            <tr>
+                                <th></th><th>Guess</th><th>Digit&amp;Place</th><th>Digit, not Place</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="col-md-5 text-center">
+                    <!--
+                     Alternate input style where each digit is a dropdown wheel. Slower to input digits, but less input validation needed.
+                    <div id="comboLock"></div>
+                    <a id="check" class="btn-block btn btn-primary mx-auto w-100 m-2">Guess</a>
+                    -->
+                    <form id="guess">
+                        <input id="guess-text" type="text" form="guess" placeholder="Your Password Guess" />
+                        <input id="guess-submit" type="submit" form="guess" value="Check Guess" />
+                    </form>
+                    <button id="forfeit" type="button" class="btn btn-danger">Give Up</button>
+                </div>
             </div>
         </div>
         <script src="{{ url_for('static', filename='mastermind_interaction.js') }}" type="text/javascript"></script>

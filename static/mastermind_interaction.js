@@ -93,7 +93,10 @@ function writeGameRecord(guess,rightDigit,rightPlace){
 function gameWon(rightPlace){
     if(rightPlace == passwordLength){
         $guess.attr('disabled');
-        $history.append('p').text('You Won!');
+        d3
+            .select('#guess-result')
+            .select('p')
+            .text('You Won!');
         $headline
             .html('')
             .append('h1')
