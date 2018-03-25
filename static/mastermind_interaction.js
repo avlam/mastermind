@@ -87,30 +87,29 @@ function writeGameRecord(guess,rightDigit,rightPlace){
     game['guess'].push(guess);
     game['rightDigitRightPlace'].push(rightPlace);
     game['rightDigitWrongPlace'].push(rightDigit);
-    game['password'].push(password);
+    game['password'].push(password.join(''));
 }
 
 function gameWon(rightPlace){
     if(rightPlace == passwordLength){
         $guess.attr('disabled');
         $history.append('p').text('You Won!');
-        d3
-            .select('#pw-display')
+        $headline
+            .html('')
             .append('h1')
-            .text(password)
+            .text(password.join(''));
+        $headline
             .append('h2')
             .text(`guessed in ${guessCounter} attempts`);
     }
 }
 
-
-// info to keep track of:
-// player name
-// game id
-// guess
-// password
-// right digit, right place
-// right digit, wrong place
+function displayFeedback(guess, rightPlace, rightDigit){
+    d3.select('#guess-result')
+        .select('p')
+        .text(`${guess} has ${rightPlace} correct digits \
+        in the right place, ${rightDigit} correct digits in the wrong place.`)
+}
 
 // Not Used
 function createLock(){
@@ -154,7 +153,31 @@ var $guess = d3
         var feedback = checkAnswer(guess,password);
         updateGuessHistory(guess,feedback[0],feedback[1]);
         writeGameRecord(guess,feedback[0],feedback[1]);
+        displayFeedback(guess,feedback[0],feedback[1]);
         gameWon(feedback[0])
+    })
+
+// Explain the rules
+var $headline = d3.select('#pw-display');
+$headline
+    .append('h1')
+    .text('Guess My Password!')
+$headline
+    .append('p')
+    .text(`It's ${passwordLength} digits long, using 0-9 with potential repeats`);
+
+// Give up button
+d3
+    .select('#forfeit')
+    .attr('style','margin-top:1em;')
+    .on('click',function(){
+        $headline
+            .html('')
+            .append('h1')
+            .text(`You gave up after ${guessCounter} attempts`);
+        $headline
+            .append('p')
+            .text(`(the password was ${password.join('')}, by the way)`);
     })
 
 
