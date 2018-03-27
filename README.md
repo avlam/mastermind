@@ -1,10 +1,8 @@
-# mastermind
-## Group Project #2 
-## Title: Codebreaker
+Group Project #2 
+Title: Codebreaker
+Team: Alexander, Beatriz, Hee and Angela
 
-## Team: Alexander, Beatriz, Hee and Angela
-
-## Proposed project:
+###Proposed project:
 ### Theme-
 Can you guess the 4-digit code using 0 to 9 with potential repeats in as few guesses as possible? We have recreated the board game Mastermind in web format so that people can play the game as many times as they want. Game results will be stored and analyzed to understand the players’ behavior. Does it take strategy, perseverance or just plain ol’ luck? It’s probably a combination of all three, but what is favored? Does the behavior change for repeat users? What makes a code hard or easy to decodify? 
 
