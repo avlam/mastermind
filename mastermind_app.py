@@ -57,7 +57,7 @@ def send():
 
 @app.route('/data')
 def show_data():
-    return pd.read_sql('SELECT * FROM play_history',db.engine).to_json(orient='split')
+    return pd.read_sql('SELECT * FROM play_history',db.engine).to_json(orient='records')
 
 
 # Flask app main
