@@ -4,7 +4,6 @@ const randomIdMax = 10000; // max random number to assign to generic player
 
 var game = {
     'playerName' : [],
-    // 'gameId' : [],
     'guessNumber': [],
     'guess' : [],
     'rightDigitRightPlace' : [],
@@ -37,7 +36,7 @@ function checkAnswer(guess, password){
     if(validateAnswer(guess)){
         // console.log(`${guess}: ${password}`);
         // create dictionary of guess
-        var pwRemainder = [];
+        var pwRemainder = {};
         var guessRemainder = [];
         var rightPlace = 0;
         var rightDigit = 0;
@@ -46,7 +45,9 @@ function checkAnswer(guess, password){
                 rightPlace++;
             }
             else{
-                pwRemainder.push(password[n]);
+                // pwRemainder.push(password[n]);
+                if(pwRemainder[password[n]] == undefined){pwRemainder[password[n]] = 1}
+                else{pwRemainder[password[n]] += 1}
                 guessRemainder.push(guess[n]);
             }
         }
@@ -54,9 +55,13 @@ function checkAnswer(guess, password){
         // console.log(guessRemainder)
         if(guessRemainder.length > 0){
             for(var m=0; m<guessRemainder.length; m++){
-                if(pwRemainder.includes(guessRemainder[m])){
+                if(pwRemainder[guessRemainder[m]] != undefined & pwRemainder[guessRemainder[m]] != 0){
                     rightDigit++;
-                } 
+                    pwRemainder[guessRemainder[m]] -= 1;
+                }
+                // if(pwRemainder.includes(guessRemainder[m])){
+                //     rightDigit++;
+                // } 
             }
         }
         var output = [rightPlace, rightDigit]
