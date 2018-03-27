@@ -58,7 +58,7 @@ function checkAnswer(guess, password){
             }
         }
         var output = [rightPlace, rightDigit]
-        console.log(output)
+        // console.log(output)git pull
         return output
     }
     else{alert('Invalid Guess!\nTry Again')}
@@ -66,7 +66,7 @@ function checkAnswer(guess, password){
 
 function validateAnswer(guess){
     var validFormat = new RegExp(`[0-9]{${passwordLength}}`);
-    console.log(validFormat.test(guess));
+    // console.log(validFormat.test(guess));
     return validFormat.test(guess)
 }
 
@@ -92,7 +92,6 @@ function writeGameRecord(guess,rightDigit,rightPlace){
 
 function gameWon(rightPlace){
     if(rightPlace == passwordLength){
-        $guess.attr('disabled');
         d3
             .select('#guess-result')
             .select('p')
@@ -104,7 +103,15 @@ function gameWon(rightPlace){
         $headline
             .append('h2')
             .text(`guessed in ${guessCounter} attempts`);
+        disableInputs();
     }
+}
+
+function disableInputs(){
+    // $guess.attr('disabled',null);
+    d3.select('#guess-text').attr('disabled',true);
+    d3.select('#guess-submit').attr('disabled',true);
+    d3.select('#forfeit').attr('disabled',true);
 }
 
 function displayFeedback(guess, rightPlace, rightDigit){
@@ -181,6 +188,7 @@ d3
         $headline
             .append('p')
             .text(`(the password was ${password.join('')}, by the way)`);
+        disableInputs();
     })
 
 
