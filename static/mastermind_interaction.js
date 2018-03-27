@@ -136,15 +136,14 @@ function provideDownload(){
             csvContent += this_row.join(',') + '\r\n';
         }
     var encodedUri = encodeURI(csvContent);
-    console.log(csvContent);
+    // console.log(csvContent);
     $headline
         .append('a')
         .attr('href',encodedUri)
+        .attr('class','btn btn-secondary btn-sm m-3')
+        .attr('role','button')
         .attr("download", "my_game.csv")
         .text('Download your game');
-
-
-
 }
 
 function displayFeedback(guess, rightPlace, rightDigit){
@@ -174,7 +173,13 @@ function setPlayerName(){
 function endGame(){
     provideDownload();
     disableInputs();
-    //this is a test
+    $headline
+        .append('a')
+        .attr('href','/')
+        .attr('class','btn btn-sm btn-primary m-3')
+        .attr('role','button')
+        .text('Play Again');
+    //Write game record to database
     fetch('/log',{
         method: 'POST',
         body: JSON.stringify(game),
@@ -184,33 +189,7 @@ function endGame(){
     });
 }
 
-
-// Not Used
-// function createLock(){
-//     let $guess = d3.select('#comboLock')
-//     for(var i = 0; i < passwordLength; i++){
-//         var $selectDigit = $guess
-//             .append('select')
-//             .attr('name',`digit${i}_select`)
-//             .attr('id',`digit${i}`);
-//         addDigitWheel($selectDigit);
-//     } 
-// }
-
-// function addDigitWheel(parent){
-//     parent
-//         .selectAll('option')
-//         .data(passwordDigits)
-//         .enter()
-//         .append('option')
-//         .attr('value',function(data){return data})
-//         .text(function(data){return data})
-// }
-
-
 // Script for page
-
-// createLock(); Alternate input style
 var password = generatePassword();
 // console.log(password);
 
@@ -248,9 +227,8 @@ $headline
 // Give up button
 d3
     .select('#forfeit')
-    .attr('style','margin-top:1em;')
+    // .attr('style','margin-top:1em;')
     .on('click',function(){
-
         $headline
             .html('')
             .append('h1')
