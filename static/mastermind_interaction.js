@@ -1,8 +1,9 @@
 const passwordLength = 4;
 const passwordDigits = ['0','1','2','3','4','5','6','7','8','9'];
+const randomIdMax = 10000; // max random number to assign to generic player
 
 var game = {
-    // 'playerName' : [],
+    'playerName' : [],
     // 'gameId' : [],
     'guessNumber': [],
     'guess' : [],
@@ -11,6 +12,7 @@ var game = {
     'password' : []
 }
 
+var playerNameSet = false;
 var guessCounter = 0;
 
 let $history = d3
@@ -82,7 +84,8 @@ function updateGuessHistory(guess,rightPlace,rightDigit){
         // .text(`${guessCounter}: ${guess}| ${rightPlace}-${rightDigit}`)
 }
 
-function writeGameRecord(guess,rightDigit,rightPlace){
+function writeGameRecord(guess,rightPlace,rightDigit){
+    game['playerName'].push(playerName);
     game['guessNumber'].push(guessCounter);
     game['guess'].push(guess);
     game['rightDigitRightPlace'].push(rightPlace);
@@ -136,20 +139,7 @@ function provideDownload(){
         .attr("download", "my_game.csv")
         .text('Download your game');
 
-//     const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
-//     let csvContent = "data:text/csv;charset=utf-8,";
-//     rows.forEach(function(rowArray){
-//        let row = rowArray.join(",");
-//        csvContent += row + "\r\n";
-//     }); 
 
-//     var encodedUri = encodeURI(csvContent);
-// var link = document.createElement("a");
-// link.setAttribute("href", encodedUri);
-// link.setAttribute("download", "my_data.csv");
-// document.body.appendChild(link); // Required for FF
-
-// link.click(); // This will download the data file named "my_data.csv".
 
 }
 
@@ -158,6 +148,23 @@ function displayFeedback(guess, rightPlace, rightDigit){
         .select('p')
         .text(`${guess} has ${rightPlace} correct digits \
         in the right place, ${rightDigit} correct digits in the wrong place.`)
+}
+
+function setPlayerName(){
+    var inputName = $playerName.node().value;
+    var validPlayer = new RegExp(`[a-zA-Z]+`);
+    if(validPlayer.test(inputName)){
+        playerName = inputName;
+    }
+    else{
+        playerName = `player${Math.floor(Math.random()*randomIdMax
+    )}`;
+    }
+    $playerName.node().value = playerName;
+    if(playerNameSet === false){
+        playerNameSet = true;
+        $playerName.attr('readonly',true)
+    }
 }
 
 
@@ -190,21 +197,26 @@ function displayFeedback(guess, rightPlace, rightDigit){
 var password = generatePassword();
 // console.log(password);
 
+var $playerName = d3
+    .select('#player-name')
+    .attr('autocomplete','off');
+
 var $guessText = d3
     .select('#guess-text')
     .attr('maxlength',`${passwordLength}`)
-    .attr('autocomplete','off')
+    .attr('autocomplete','off');
 
 var $guess = d3
     .select('#guess')
     .on('submit',function(){
         d3.event.preventDefault();
+        setPlayerName();
         var guess = $guessText.node().value;
         var feedback = checkAnswer(guess,password);
         updateGuessHistory(guess,feedback[0],feedback[1]);
         writeGameRecord(guess,feedback[0],feedback[1]);
         displayFeedback(guess,feedback[0],feedback[1]);
-        gameWon(feedback[0])
+        gameWon(feedback[0]);
     })
 
 // Explain the rules
@@ -221,6 +233,7 @@ d3
     .select('#forfeit')
     .attr('style','margin-top:1em;')
     .on('click',function(){
+
         $headline
             .html('')
             .append('h1')
