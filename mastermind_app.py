@@ -55,6 +55,10 @@ def send():
     this_game.to_sql('play_history',db.engine,if_exists='append',index=False)
     return jsonify({'msg':'success'})
 
+@app.route('/data')
+def show_data():
+    return jsonify(pd.read_sql('SELECT * FROM play_history'))
+
 
 # Flask app main
 if __name__ == "__main__":
