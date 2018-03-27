@@ -104,6 +104,7 @@ function gameWon(rightPlace){
             .append('h2')
             .text(`guessed in ${guessCounter} attempts`);
         disableInputs();
+        provideDownload();
     }
 }
 
@@ -114,6 +115,44 @@ function disableInputs(){
     d3.select('#forfeit').attr('disabled',true);
 }
 
+function provideDownload(){
+    // Download game history as csv
+    const csvHeaders = Object.keys(game);
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += csvHeaders.join(',') + '\r\n';
+        for(var j=0; j<guessCounter; j++){
+            var this_row = []
+            for(var k=0; k<Object.keys(game).length; k++){
+                var this_field = csvHeaders[k];
+                this_row.push(game[this_field][j]);
+            }
+            csvContent += this_row.join(',') + '\r\n';
+        }
+    var encodedUri = encodeURI(csvContent);
+    console.log(csvContent);
+    $headline
+        .append('a')
+        .attr('href',encodedUri)
+        .attr("download", "my_game.csv")
+        .text('Download your game');
+
+//     const rows = [["name1", "city1", "some other info"], ["name2", "city2", "more info"]];
+//     let csvContent = "data:text/csv;charset=utf-8,";
+//     rows.forEach(function(rowArray){
+//        let row = rowArray.join(",");
+//        csvContent += row + "\r\n";
+//     }); 
+
+//     var encodedUri = encodeURI(csvContent);
+// var link = document.createElement("a");
+// link.setAttribute("href", encodedUri);
+// link.setAttribute("download", "my_data.csv");
+// document.body.appendChild(link); // Required for FF
+
+// link.click(); // This will download the data file named "my_data.csv".
+
+}
+
 function displayFeedback(guess, rightPlace, rightDigit){
     d3.select('#guess-result')
         .select('p')
@@ -121,27 +160,28 @@ function displayFeedback(guess, rightPlace, rightDigit){
         in the right place, ${rightDigit} correct digits in the wrong place.`)
 }
 
-// Not Used
-function createLock(){
-    let $guess = d3.select('#comboLock')
-    for(var i = 0; i < passwordLength; i++){
-        var $selectDigit = $guess
-            .append('select')
-            .attr('name',`digit${i}_select`)
-            .attr('id',`digit${i}`);
-        addDigitWheel($selectDigit);
-    } 
-}
 
-function addDigitWheel(parent){
-    parent
-        .selectAll('option')
-        .data(passwordDigits)
-        .enter()
-        .append('option')
-        .attr('value',function(data){return data})
-        .text(function(data){return data})
-}
+// Not Used
+// function createLock(){
+//     let $guess = d3.select('#comboLock')
+//     for(var i = 0; i < passwordLength; i++){
+//         var $selectDigit = $guess
+//             .append('select')
+//             .attr('name',`digit${i}_select`)
+//             .attr('id',`digit${i}`);
+//         addDigitWheel($selectDigit);
+//     } 
+// }
+
+// function addDigitWheel(parent){
+//     parent
+//         .selectAll('option')
+//         .data(passwordDigits)
+//         .enter()
+//         .append('option')
+//         .attr('value',function(data){return data})
+//         .text(function(data){return data})
+// }
 
 
 // Script for page
@@ -189,7 +229,12 @@ d3
             .append('p')
             .text(`(the password was ${password.join('')}, by the way)`);
         disableInputs();
+        provideDownload();
     })
+
+
+
+
 
 
 
