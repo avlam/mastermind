@@ -106,8 +106,7 @@ function gameWon(rightPlace){
         $headline
             .append('h2')
             .text(`guessed in ${guessCounter} attempts`);
-        disableInputs();
-        provideDownload();
+        endGame();
     }
 }
 
@@ -165,6 +164,19 @@ function setPlayerName(){
         playerNameSet = true;
         $playerName.attr('readonly',true)
     }
+}
+
+function endGame(){
+    provideDownload();
+    disableInputs();
+    //this is a test
+    fetch('/log',{
+        method: 'POST',
+        body: JSON.stringify(game),
+        headers: {
+            'content-type': 'application/json'
+        }
+    });
 }
 
 
@@ -241,10 +253,8 @@ d3
         $headline
             .append('p')
             .text(`(the password was ${password.join('')}, by the way)`);
-        disableInputs();
-        provideDownload();
+        endGame();
     })
-
 
 
 

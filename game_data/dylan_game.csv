@@ -1,0 +1,11 @@
+playerName,guessNumber,guess,rightDigitRightPlace,rightDigitWrongPlace,password
+Dylan,1,0000,1,0,4801
+Dylan,2,0111,1,1,4801
+Dylan,3,0123,0,2,4801
+Dylan,4,1056,0,2,4801
+Dylan,5,7801,3,0,4801
+Dylan,6,9801,3,0,4801
+Dylan,7,2801,3,0,4801
+Dylan,8,6801,3,0,4801
+Dylan,9,3801,3,0,4801
+Dylan,10,4801,4,0,4801
