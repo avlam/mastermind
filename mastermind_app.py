@@ -57,7 +57,7 @@ def send():
 
 @app.route('/data')
 def show_data():
-    return jsonify(pd.read_sql('SELECT * FROM play_history'))
+    return jsonify(pd.read_sql('SELECT * FROM play_history',db.engine))
 
 
 # Flask app main
