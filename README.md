@@ -15,7 +15,7 @@ Our game will consist of three html pages. One will contain the actual game, wit
 
 ![Game page](proposal_images/Figure1.png)
 
-The second page will appear once the game is over. It will prompt the user to start a new game, and it will display how the player did in relation to other players (top 50 list or a quantile plot showing where the player placed in relation to others). It will also contain a display indicating the pin difficulty score as a dial graph (easy, medium, difficult). Also, the table containing guesses from the previous game will be color coded to show if there is a pattern/strategy or not on how the game was played - right number and right position in green; right number and wrong position in orange; wrong number in red (Figure 2). 
+The second page will appear once the game is over. It will prompt the user to start a new game, and it will display how the player did in relation to other players (top 50 list or a boxplot showing where the player placed in relation to others). It will also contain a display indicating the pin difficulty score as a dial graph (easy, medium, difficult). Also, the table containing guesses from the previous game will be color coded to show if there is a pattern/strategy or not on how the game was played - right number and right position in green; right number and wrong position in orange; wrong number in red (Figure 2). 
 
 ![Output page](proposal_images/Figure2.PNG)
 
