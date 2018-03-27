@@ -1,6 +1,6 @@
-Group Project #2 
-Title: Codebreaker
-Team: Alexander, Beatriz, Hee and Angela
+### Group Project #2 
+### Title: Codebreaker
+### Team: Alexander, Beatriz, Hee and Angela
 
 ###Proposed project:
 ### Theme-
