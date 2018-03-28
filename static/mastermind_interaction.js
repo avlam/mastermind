@@ -191,6 +191,11 @@ function endGame(){
 }
 
 // Script for page
+d3.select('body')
+    .insert('h1','div')
+    .attr('style','font-size:1em; background-color: #ff0800; text-align:center;')
+    .text('This game is in Beta. Come back again later for visualizations!')
+
 var password = generatePassword();
 // console.log(password);
 
