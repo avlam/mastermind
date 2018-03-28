@@ -80,7 +80,8 @@ function validateAnswer(guess){
 function updateGuessHistory(guess,rightPlace,rightDigit){
     guessCounter++
     $history.select('tbody')
-        .append('tr')
+        // .append('tr')
+        .insert('tr','tr')
         .selectAll('td')
         .data([guessCounter,guess,rightPlace,rightDigit])
         .enter()
