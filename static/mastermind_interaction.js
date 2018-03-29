@@ -83,10 +83,16 @@ function updateGuessHistory(guess,rightPlace,rightDigit){
         // .append('tr')
         .insert('tr','tr')
         .selectAll('td')
-        .data([guessCounter,guess,rightPlace,rightDigit])
+        .data([
+            ['guess-counter',guessCounter],
+            ['guess',guess],
+            ['right-place',rightPlace],
+            ['right-digit',rightDigit]
+        ])
         .enter()
         .append('td')
-        .text(function(data){return data});
+        .attr('class',function(data){return data[0]})
+        .text(function(data){return data[1]});
         // .text(`${guessCounter}: ${guess}| ${rightPlace}-${rightDigit}`)
 }
 
@@ -174,6 +180,8 @@ function setPlayerName(){
 function endGame(){
     provideDownload();
     disableInputs();
+    // colorFeedback();
+    colorGuess();
     $headline
         .append('a')
         .attr('href','/')
@@ -186,6 +194,86 @@ function endGame(){
         body: JSON.stringify(game),
         headers: {
             'content-type': 'application/json'
+        }
+    });
+}
+
+function spectrum(value){
+    switch(value){
+        case 0: 
+            return '#dd4737'
+            break;
+        case 1: 
+            return '#dd8137'
+            break;
+        case 2: 
+            return '#ddb637'
+            break;
+        case 3: 
+            return '#dbdd37'
+            break;
+        case 4: 
+            return '#288e20'
+            break;
+    }
+}
+
+function colorFeedback(){
+    d3
+    .select('#guess-history')
+    .select('tbody')
+    .selectAll('.right-digit')
+    .each(function(data){
+        d3
+            .select(this)
+            .style('color',spectrum(data[1]))
+    });
+    d3
+    .select('#guess-history')
+    .select('tbody')
+    .selectAll('.right-place')
+    .each(function(data){
+        d3
+            .select(this)
+            .style('color',spectrum(data[1]))
+    });
+}
+
+function colorGuessController(candidate,index,reference){
+    let feedback;
+    if(candidate[index] == reference[index]){
+        reference[index] = -1;
+        feedback = 'perfect';
+    }
+    else if(reference.includes(candidate[index])){
+        reference[reference.indexOf(candidate[index])] = -1;
+        feedback = 'almost';
+    }
+    else{feedback = 'feedback';}
+    return [feedback,reference]
+}
+
+function colorGuess(){
+    d3
+    .select('#guess-history')
+    .select('tbody')
+    .selectAll('.guess')
+    .each(function(data,index){
+        var thisElement = d3.select(this);
+        thisElement.html('');
+        let reference
+        reference = password.slice(0); // slice makes a copy of password rather than linking the variables
+        // console.log(`password is ${password}`);
+        // console.log(`reset reference to ${reference}`);
+        for(var i=0; i<data[1].length;i++){
+            response = colorGuessController(data[1],i,reference)
+            reference = response[1];
+            // console.log(reference)
+            thisElement
+                .append('span')
+                .classed('feedback',true)
+                .classed(response[0],true)
+                .text(data[1][i]);
         }
     });
 }
