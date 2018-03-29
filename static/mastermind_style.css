@@ -1,0 +1,12 @@
+.feedback{
+    font-weight: bolder;
+}
+
+.almost{
+    background-color: #FFA533;
+}
+
+.perfect{
+    background-color: #005b96;
+    color: #c0c0c0;
+}

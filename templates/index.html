@@ -12,6 +12,8 @@
         <!-- Import Plotly -->
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
+        <!-- Add style sheet -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mastermind_style.css') }}">
     </head>
     
     <body>
@@ -31,7 +33,7 @@
                     <table class="table border text-center">
                         <thead>
                             <tr>
-                                <th></th><th>Guess</th><th>Digit&amp;Place</th><th>Digit, not Place</th>
+                                <th></th><th>Guess</th><th>Digit &amp; Place</th><th>Digit, not Place</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
