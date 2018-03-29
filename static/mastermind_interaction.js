@@ -180,7 +180,7 @@ function setPlayerName(){
 function endGame(){
     provideDownload();
     disableInputs();
-    // colorFeedback();
+    colorFeedback();
     colorGuess();
     $headline
         .append('a')
@@ -198,25 +198,25 @@ function endGame(){
     });
 }
 
-function spectrum(value){
-    switch(value){
-        case 0: 
-            return '#dd4737'
-            break;
-        case 1: 
-            return '#dd8137'
-            break;
-        case 2: 
-            return '#ddb637'
-            break;
-        case 3: 
-            return '#dbdd37'
-            break;
-        case 4: 
-            return '#288e20'
-            break;
-    }
-}
+// function spectrum(value){
+//     switch(value){
+//         case 0: 
+//             return '#dd4737'
+//             break;
+//         case 1: 
+//             return '#dd8137'
+//             break;
+//         case 2: 
+//             return '#ddb637'
+//             break;
+//         case 3: 
+//             return '#dbdd37'
+//             break;
+//         case 4: 
+//             return '#288e20'
+//             break;
+//     }
+// }
 
 function colorFeedback(){
     d3
@@ -224,18 +224,18 @@ function colorFeedback(){
     .select('tbody')
     .selectAll('.right-digit')
     .each(function(data){
-        d3
-            .select(this)
-            .style('color',spectrum(data[1]))
+        var thisElement = d3.select(this);
+        if(data[1]>0){thisElement.classed('almost',true)}
+        thisElement.classed('feedback',true)
     });
     d3
     .select('#guess-history')
     .select('tbody')
     .selectAll('.right-place')
     .each(function(data){
-        d3
-            .select(this)
-            .style('color',spectrum(data[1]))
+        var thisElement = d3.select(this);
+        if(data[1]>0){thisElement.classed('perfect',true)}
+        thisElement.classed('feedback',true)
     });
 }
 

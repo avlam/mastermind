@@ -1,12 +1,13 @@
 .feedback{
     font-weight: bolder;
+    color: #888;
 }
 
 .almost{
-    background-color: #FFA533;
+    color: #FFA533;
 }
 
 .perfect{
-    background-color: #005b96;
-    color: #c0c0c0;
+    color: #00CDCD;
+    /* color: #c0c0c0; */
 }
