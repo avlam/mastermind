@@ -5,11 +5,13 @@ import pandas as pd
 # from sqlalchemy import create_engine
 from flask import Flask, render_template, jsonify, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 import re
 import os
 
 # Flask App
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or 'sqlite:///db.sqlite'
 db = SQLAlchemy(app)
