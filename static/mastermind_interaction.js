@@ -196,27 +196,11 @@ function endGame(){
             'content-type': 'application/json'
         }
     });
+    $guess.style('display','none');
+    $forfeit.style('display','none');
+    boxPlot();
+    speedGauge();
 }
-
-// function spectrum(value){
-//     switch(value){
-//         case 0: 
-//             return '#dd4737'
-//             break;
-//         case 1: 
-//             return '#dd8137'
-//             break;
-//         case 2: 
-//             return '#ddb637'
-//             break;
-//         case 3: 
-//             return '#dbdd37'
-//             break;
-//         case 4: 
-//             return '#288e20'
-//             break;
-//     }
-// }
 
 function colorFeedback(){
     d3
@@ -319,7 +303,7 @@ $headline
     .text(`It's ${passwordLength} digits long, using 0-9 with potential repeats`);
 
 // Give up button
-d3
+var $forfeit = d3
     .select('#forfeit')
     // .attr('style','margin-top:1em;')
     .on('click',function(){
