@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="row">
-                <div id="guess-history" class="col-md-7">
+                <div id="guess-history" class="col-md-5">
                     <table class="table border text-center">
                         <thead>
                             <tr>
@@ -39,7 +39,7 @@
                         <tbody></tbody>
                     </table>
                 </div>
-                <div class="col-md-5 text-center">
+                <div class="col-md-7 text-center">
                     <!--
                      Alternate input style where each digit is a dropdown wheel. Slower to input digits, but less input validation needed.
                     <div id="comboLock"></div>
@@ -51,9 +51,12 @@
                         <input id="guess-submit" class="btn btn-primary" type="submit" form="guess" value="Check Guess" />
                     </form>
                     <button id="forfeit" type="button" class="btn btn-danger m-3">Give Up</button>
+                    <div id="plot"></div>
+                    <div id="speed"></div>
                 </div>
             </div>
         </div>
+        <script src="{{ url_for('static', filename='output_hk.js') }}" type="text/javascript"></script>
         <script src="{{ url_for('static', filename='mastermind_interaction.js') }}" type="text/javascript"></script>
     </body>
     
