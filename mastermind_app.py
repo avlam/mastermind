@@ -58,8 +58,15 @@ def send():
     return jsonify({'msg':'success'})
 
 @app.route('/data')
-def show_data():
-    return pd.read_sql('SELECT * FROM play_history',db.engine).to_json(orient='records')
+@app.route('/data/<arg>')
+def show_data(arg='records'):
+    return pd.read_sql('SELECT * FROM play_history',db.engine).to_json(orient=arg)
+
+@app.route('/by_game')
+@app.route('/by_game/<arg>')
+def summarize_games(arg='records'):
+    query = 'SELECT game, player, guess_number, password FROM play_history WHERE right_place=4'
+    return pd.read_sql(query,db.engine).to_json(orient=arg)
 
 
 # Flask app main
