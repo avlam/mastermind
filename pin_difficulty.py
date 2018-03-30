@@ -46,7 +46,7 @@ def map_level(pl_df):
     result_data = pd.merge(data_df, pl_df, how="left", left_on='password', right_on='pins')
     return(result_data)
 
-def passwd_difficulty():
+def pin():
     
     # Create a reference the CSV four-digit-pin-codes-and-frequency.csv
     data_folder = 'raw_data'
