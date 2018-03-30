@@ -33,9 +33,9 @@ def pin_difficulty(data_df):
     new_pins_df["level"]=pd.cut(new_pins_df["frequency"], bins, labels= bin_labels)
     new_pins_df.to_csv("raw_data/pin-frequency-level.csv", index= False)
     
-    # Remove column Frequency that is not used anymore
-    new_pins_df.drop(columns=["frequency"], inplace=True)
-    
+#     Remove column Frequency that is not used anymore
+#    new_pins_df.drop(columns=["frequency"], inplace=True)
+
     return(new_pins_df)
 
 def map_level(pl_df):

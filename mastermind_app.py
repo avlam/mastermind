@@ -10,7 +10,7 @@ import pin_difficulty
 # ref_dir = 'raw_data'
 # ref_file = 'pin-frequency-level'
 difficulty_lookup = pin_difficulty.pin()
-# difficulty_lookup = pin_difficulty.new_pins_df.set_index('pins')
+difficulty_lookup.set_index('pins',inplace=True)
 
 # Flask App
 app = Flask(__name__)
@@ -73,11 +73,10 @@ def summarize_games(arg='records'):
 
 @app.route('/lookup_difficulty')
 @app.route('/lookup_difficulty/<pin>')
-@app.route('/lookup_difficulty/<pin>/<arg>')
 def lookup_difficulty(pin=None,arg='columns'):
     # Will error if given a pin not in DataFrame
     if pin:
-        return jsonify(difficulty_lookup.loc[int(pin)].level)
+        return difficulty_lookup.loc[int(pin)].to_json(orient='columns')
     else:
         return difficulty_lookup.sort_index().to_json(orient=arg)
 
