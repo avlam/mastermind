@@ -6,8 +6,8 @@ from flask_cors import CORS
 import re
 import os
 
-import pin_difficulty
-difficulty_lookup = pin_difficulty.new_pins_df.set_index('pins')
+# import pin_difficulty
+# difficulty_lookup = pin_difficulty.new_pins_df.set_index('pins')
 
 # Flask App
 app = Flask(__name__)
@@ -68,15 +68,15 @@ def summarize_games(arg='records'):
     query = 'SELECT game, player, guess_number, password FROM play_history WHERE right_place=4'
     return pd.read_sql(query,db.engine).to_json(orient=arg)
 
-@app.route('/lookup_difficulty')
-@app.route('/lookup_difficulty/<pin>')
-@app.route('/lookup_difficulty/<pin>/<arg>')
-def lookup_difficulty(pin=None,arg='columns'):
-    # Will error if given a pin not in DataFrame
-    if pin:
-        return jsonify(difficulty_lookup.loc[int(pin)].level)
-    else:
-        return difficulty_lookup.sort_index().to_json(orient=arg)
+# @app.route('/lookup_difficulty')
+# @app.route('/lookup_difficulty/<pin>')
+# @app.route('/lookup_difficulty/<pin>/<arg>')
+# def lookup_difficulty(pin=None,arg='columns'):
+#     # Will error if given a pin not in DataFrame
+#     if pin:
+#         return jsonify(difficulty_lookup.loc[int(pin)].level)
+#     else:
+#         return difficulty_lookup.sort_index().to_json(orient=arg)
 
 
 
