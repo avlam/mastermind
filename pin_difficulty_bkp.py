@@ -11,8 +11,9 @@ def read_base_file(folder, file):
     file_csv = os.path.join(folder,file)
     try:
         df = pd.read_csv(file_csv)
-    except:
+    except (IOException, e):
         print ("Error in reading", file)
+        print (e)
         df = pd.DataFrame()
     return df
 
@@ -45,14 +46,16 @@ def map_level(pl_df):
     result_data = pd.merge(data_df, pl_df, how="left", left_on='password', right_on='pins')
     return(result_data)
 
-# Create a reference the CSV four-digit-pin-codes-and-frequency.csv
 def passwd_difficulty():
+    
+    # Create a reference the CSV four-digit-pin-codes-and-frequency.csv
     data_folder = 'raw_data'
     base_file = 'four-digit-pin-codes-and-frequency.csv'
     pins_df = read_base_file(data_folder,base_file)
     
     pins_levels_df = pin_difficulty(pins_df)
     output_data=map_level(pins_levels_df)
-
     return(output_data)
+
+# output_data
 
