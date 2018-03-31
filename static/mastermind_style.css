@@ -11,3 +11,7 @@
     color: #00CDCD;
     /* color: #c0c0c0; */
 }
+
+.root{
+    display: hidden;
+}
