@@ -1,6 +1,6 @@
 # coding: utf-8
 import pandas as pd
-import requests
+#import requests
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -38,13 +38,13 @@ def pin_difficulty(data_df):
 
     return(new_pins_df)
 
-def map_level(pl_df):
-    data_url = 'https://ucbe-mastermind.herokuapp.com/data'
-    response = requests.get(data_url)
-
-    data_df = pd.DataFrame(response.json())
-    result_data = pd.merge(data_df, pl_df, how="left", left_on='password', right_on='pins')
-    return(result_data)
+#def map_level(pl_df):
+#    data_url = 'https://ucbe-mastermind.herokuapp.com/data'
+#    response = requests.get(data_url)
+#
+#    data_df = pd.DataFrame(response.json())
+#    result_data = pd.merge(data_df, pl_df, how="left", left_on='password', right_on='pins')
+#    return(result_data)
 
 def pin():
     
