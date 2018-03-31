@@ -4,7 +4,7 @@ function generateHall(){
     const referenceRadius = 100;
     const scale = 2000;
     const threshold = 3 // cutoff of attempts to accept
-    var width = 600, height = 600;
+    var width = "100%", height = 600;
 
     var chart = Plotly.d3
         .select("#hallOfFame")
