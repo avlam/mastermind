@@ -185,7 +185,7 @@ var url = "/by_game/columns"
     //     Plotly.newPlot('speed', data, layout);
     // };
 
-    function histotwo() {
+    function histotwo(last_player) {
         Plotly.d3.json(url, function(error, response){
             if (error) return console.warn(error);
             console.log(response)
@@ -205,7 +205,7 @@ var url = "/by_game/columns"
             console.log(gameswon);
             console.log(values); 
 
-        last_player = values[values.length - 1];
+        // last_player = values[values.length - 1];
         console.log(last_player);
 
         // A formatter for counts.

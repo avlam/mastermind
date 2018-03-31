@@ -198,7 +198,7 @@ function endGame(){
     });
     $guess.style('display','none');
     $forfeit.style('display','none');
-    histotwo();
+    histotwo(guessCounter);
     pinGauge(password.join(''));
     generateHall();
 }
