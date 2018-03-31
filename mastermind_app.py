@@ -90,7 +90,7 @@ def summarize_players(arg='index'):
     n_games = players['game'].nunique()
     best_record = final_entry.loc[final_entry['right_place']==4].groupby('player')['guess_number'].min()
     leaderboard = pd.concat([n_games,best_record],axis=1).rename(columns={
-        'game':'n_games','guess_number':'guesses_to_win'}).sort_values('guesses_to_win',ascending=False).fillna(-1)
+        'game':'n_games','guess_number':'guesses_to_win'}).sort_values('guesses_to_win').fillna(-1)
     return leaderboard.to_json(orient=arg)
 
 
