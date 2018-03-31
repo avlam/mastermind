@@ -80,6 +80,19 @@ def lookup_difficulty(pin=None,arg='columns'):
     else:
         return difficulty_lookup.sort_index().to_json(orient=arg)
 
+@app.route('/leaderboard')
+@app.route('/leaderboard/<arg>')
+def summarize_players(arg='index'):
+    data = pd.read_sql('SELECT * from play_history',db.engine)
+    game_summary = data.groupby('game')
+    players = data.groupby('player')
+    final_entry = game_summary.last()
+    n_games = players['game'].nunique()
+    best_record = final_entry.loc[final_entry['right_place']==4].groupby('player')['guess_number'].min()
+    leaderboard = pd.concat([n_games,best_record],axis=1).rename(columns={
+        'game':'n_games','guess_number':'guesses_to_win'}).sort_values('guesses_to_win')
+    return leaderboard.to_json(orient=arg)
+
 
 
 # Flask app main
