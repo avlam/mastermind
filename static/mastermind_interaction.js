@@ -200,6 +200,7 @@ function endGame(){
     $forfeit.style('display','none');
     histotwo();
     pinGauge(password.join(''));
+    generateHall();
 }
 
 function colorFeedback(){
