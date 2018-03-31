@@ -2,8 +2,9 @@
 
 function generateHall(){
     const referenceRadius = 100;
-    const scale = 1000;
-    var width = 900, height = 600;
+    const scale = 2000;
+    const threshold = 3 // cutoff of attempts to accept
+    var width = 600, height = 600;
 
     var chart = Plotly.d3
         .select("#hallOfFame")
@@ -22,13 +23,13 @@ function generateHall(){
         // console.log(data)
         var flatData = []
         for(var i=0; i<Object.keys(data).length; i++){
-            if (data[Object.keys(data)[i]]['guesses_to_win'] > 0){
+            if (data[Object.keys(data)[i]]['guesses_to_win'] > threshold){
                 flatData.push({
                     'name': Object.keys(data)[i],
                     'nGames': data[Object.keys(data)[i]]['n_games'],
                     'bestRecord': data[Object.keys(data)[i]]['guesses_to_win'],
                     // value: data[Object.keys(data)[i]]['n_games']
-                    value: scale*(2**(-data[Object.keys(data)[i]]['guesses_to_win']))
+                    value: scale*(2**(threshold-data[Object.keys(data)[i]]['guesses_to_win']))
                 })
             }
         }
@@ -63,7 +64,7 @@ function generateHall(){
                 // else{return 100+Math.floor(referenceRadius/d.bestRecord);} 
             })
             .attr("class", function(d) { return d.children ? "root" : "leaf"; })
-            .attr("fill", function(d){return `rgb(${255*(d.nGames/20)},${0},${255-255*(d.nGames/20)})`})
+            .attr("fill", function(d){return `rgb(${256-2**d.nGames},${0},${2**d.nGames})`})
             .attr("opacity", function(d) {return d.name=='root' ? 0 : 0.25;})
             .attr("stroke", "#ADADAD")
             .attr("stroke-width", 2);
