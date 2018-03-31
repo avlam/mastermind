@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Codebreaker Hall of Fame</title>
+        <style>
+        text {
+              font: 10px sans-serif;
+            }
+        </style>
+
+        <!--Import bootstrap-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- Import d3 -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script> -->
+        <!-- Import Plotly -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="row">
+            <div id="Header" class="col-md-12 text-center">
+                <h1>Codebreaker Hall of Fame</h1>
+            </div>
+        </div>      
+        <div class="container">
+            <div class="row">
+                <div id="bubble_chart" class="col-md-12 text-center">
+                        <script>
+                                var diameter = 960,
+                                    format = d3.format(",d"),
+                                    color = d3.scale.category20c();
+                                var bubble = d3.layout.pack()
+                                    .sort(null)
+                                    .size([diameter, diameter])
+                                    .padding(1.5);
+                                var svg = d3.select("body").append("svg")
+                                    .attr("width", diameter)
+                                    .attr("height", diameter)
+                                    .attr("class", "bubble");
+                                    
+                                var tooltip = d3.select("body")
+                                    .append("div")
+                                    .style("position", "absolute")
+                                    .style("z-index", "10")
+                                    .style("visibility", "hidden")
+                                    .style("color", "white")
+                                    .style("padding", "8px")
+                                    .style("background-color", "rgba(0, 0, 0, 0.75)")
+                                    .style("border-radius", "6px")
+                                    .style("font", "12px sans-serif")
+                                    .text("tooltip");
+                                d3.json("flare.json", function(error, root) {
+                                  var node = svg.selectAll(".node")
+                                      .data(bubble.nodes(classes(root))
+                                      .filter(function(d) { return !d.children; }))
+                                    .enter().append("g")
+                                      .attr("class", "node")
+                                      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                                  node.append("circle")
+                                      .attr("r", function(d) { return d.r; })
+                                      .style("fill", function(d) { return color(d.packageName); })
+                                      .on("mouseover", function(d) {
+                                              tooltip.text(d.className + ": " + format(d.value));
+                                              tooltip.style("visibility", "visible");
+                                      })
+                                      .on("mousemove", function() {
+                                          return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+                                      })
+                                      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+                                  node.append("text")
+                                      .attr("dy", ".3em")
+                                      .style("text-anchor", "middle")
+                                      .style("pointer-events", "none")
+                                      .text(function(d) { return d.className.substring(0, d.r / 3); });
+                                });
+                                // Returns a flattened hierarchy containing all leaf nodes under the root.
+                                function classes(root) {
+                                  var classes = [];
+                                  function recurse(name, node) {
+                                    if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+                                    else classes.push({packageName: name, className: node.name, value: node.size});
+                                  }
+                                  recurse(null, root);
+                                  return {children: classes};
+                                }
+                                d3.select(self.frameElement).style("height", diameter + "px");
+                                </script>
+     
+                </div>
+            </div>
+            
+        </div>
+    </body>                  
+</html>
+
+
+
