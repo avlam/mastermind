@@ -207,6 +207,10 @@ var url = "/by_game/columns"
 
         // last_player = values[values.length - 1];
         console.log(last_player);
+        var div = d3
+        .select('body')
+        .append('div')
+        .attr('class', 'tooltip');  
 
         // A formatter for counts.
         var formatCount = d3.format(",.0f");
@@ -242,21 +246,58 @@ var url = "/by_game/columns"
             .scale(x)
             .orient("bottom");
 
+        var yAxis = d3.svg.axis()
+            .tickValues(d3.range(0,10,1))  
+            .scale(y)
+            .orient("left");
+
+        // var yAxis = d3.axisLeft(d3.range(0, yMax));
+
         var svg = d3.select("#plot").append("svg")
         // var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
+            .attr("width", width + margin.left + margin.right + 10)
+            .attr("height", height + margin.top + margin.bottom + 10)
             // .attr("width", width)
             // .attr("height", height)
-        .append("g")
+            .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         var bar = svg.selectAll(".bar")
             .data(data)
             .enter().append("g")
             .attr("class", "bar")
-            .attr("transform", function(d) { return "translate(" + (x(d.x)-15) + "," + y(d.y) + ")"; });
+            .attr("transform", function(d) { return "translate(" + (x(d.x)+5) + "," + y(d.y) + ")"; })
             // .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+            .on('mouseover', function(data, index) {
+                div.style('opacity', 0.9);
+                if (data.x === last_player) {
+                    return div
+                    .html('You have made ' + data.x + ' guesses! ' + (precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made same amount of guesses!') 
+                    // We can also use HTML tags inside the html() method.
+                    // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
+                    .style('left', d3.event.pageX + 'px')
+                    .style('top', d3.event.pageY + 'px');
+                }
+
+                else {
+                    return div
+                    .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made ' + data.x+ ' guesses!') 
+                    // We can also use HTML tags inside the html() method.
+                    // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
+                    .style('left', d3.event.pageX + 'px')
+                    .style('top', d3.event.pageY + 'px');
+                }
+                // div
+                //   .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' Of players made ' + data.x+ ' guesses!') 
+                //   // We can also use HTML tags inside the html() method.
+                //   // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
+                //   .style('left', d3.event.pageX + 'px')
+                //   .style('top', d3.event.pageY + 'px');
+              })
+              // Step 4: Add an onmouseout event to make the tooltip invisible
+              .on('mouseout', function(data, index) {
+                div.style('opacity', 0);
+              });
 
         bar.append("rect")
             .attr("x", 1)
@@ -273,6 +314,28 @@ var url = "/by_game/columns"
              
             });
 
+                                            svg
+                                            .append('text')
+                                            // Position the text
+                                            .attr(
+                                            'transform',
+                                            'translate(' + width / 2 + ',' + (height + margin.top + 15) + ')',
+                                            )
+                                            // Center the text (https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor)
+                                            .attr('text-anchor', 'middle')
+                                            .attr('font-size', '16px')
+                                            .attr('fill', 'black')
+                                            .text('Number of guesses');
+
+                                            svg
+                                            .append('text')
+                                            .attr('transform', 'rotate(-90)')
+                                            .attr('y', 0 - margin.left + 0)
+                                            .attr('x', 0 - 300)
+                                            .attr('dy', '1em')
+                                            .attr('class', 'axisText')
+                                            .text('Number of players');
+
         bar.append("text")
             .attr("dy", ".75em")
             .attr("y", -12)
@@ -281,7 +344,13 @@ var url = "/by_game/columns"
             .text(function(d) { return formatCount(d.y); });
 
         svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(20," + 0 + ")")
+            .call(yAxis);
+
+            svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
+            .attr("transform", "translate(20," + height + ")")
             .call(xAxis);
+        
             })};
