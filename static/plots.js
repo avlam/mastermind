@@ -1,4 +1,4 @@
-var url = "http://ucbe-mastermind.herokuapp.com/by_game/columns"
+var url = "/by_game/columns"
 
 // Plotly.d3.json(url, function(error, response){
 //     if (error) return console.warn(error);
