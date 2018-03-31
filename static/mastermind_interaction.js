@@ -199,7 +199,7 @@ function endGame(){
     $guess.style('display','none');
     $forfeit.style('display','none');
     histoPlot();
-    speedGauge();
+    pinGauge(password.join(''));
 }
 
 function colorFeedback(){
