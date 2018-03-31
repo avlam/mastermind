@@ -16,7 +16,10 @@ function generateHall(){
 
     var pack = Plotly.d3.layout.pack()
         .size([width, height - 50])
-        .padding(10);
+        .padding(10)
+        .sort(function(a, b) {
+            return -(a.value - b.value);
+        });
 
     Plotly.d3.json('/leaderboard', function(data) {
         // rearrange data into list of objects containing playername, best attempts, and number of games
