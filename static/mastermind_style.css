@@ -15,3 +15,18 @@
 .root{
     display: hidden;
 }
+
+.tooltip {
+    position: absolute;
+    width: 100px;
+    height: 75px;
+    vertical-align: middle;
+    padding: 2px;
+    font: 12px sans-serif;
+    text-align: center;
+    background: orange;
+    font-weight: bold;
+    border: 0;
+    border-radius: 10px;
+  }
+  
