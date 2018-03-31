@@ -67,7 +67,7 @@ function generateHall(){
                 // else{return 100+Math.floor(referenceRadius/d.bestRecord);} 
             })
             .attr("class", function(d) { return d.children ? "root" : "leaf"; })
-            .attr("fill", function(d){return `rgb(${256-2**d.nGames},${0},${2**d.nGames})`})
+            .attr("fill", function(d){return `cmyk(${256-2**d.nGames},${2**d.nGames}),${0},${50}`})
             .attr("opacity", function(d) {return d.name=='root' ? 0 : 1;})
             .attr("stroke", "#ADADAD")
             .attr("stroke-width", 2);
