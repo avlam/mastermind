@@ -103,7 +103,8 @@ var url = "/by_game/columns"
         }];
     
         var layout = {
-        shapes:[{
+            //hovermode:false,
+            shapes:[{
             type: 'path',
             path: path,
             fillcolor: '850000',
@@ -113,7 +114,11 @@ var url = "/by_game/columns"
             }],
         title: '<b>Pin Difficulty Gauge</b>',
         height: 700,
-        width: 900,
+        width: 800,
+        margin: {
+            r: 100,
+            t: 100,
+        },
         xaxis: {zeroline:false, showticklabels:false,
                     showgrid: false, range: [-1, 1]},
         yaxis: {zeroline:false, showticklabels:false,
