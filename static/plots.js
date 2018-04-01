@@ -1,3 +1,8 @@
+function precisionRound(number, precision) {
+    var factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+  }
+
 var url = "/by_game/columns"
 
 // Plotly.d3.json(url, function(error, response){
@@ -212,53 +217,53 @@ var url = "/by_game/columns"
 
         // last_player = values[values.length - 1];
         console.log(last_player);
-        var div = d3
+        var div = Plotly.d3
         .select('body')
         .append('div')
         .attr('class', 'tooltip');  
 
         // A formatter for counts.
-        var formatCount = d3.format(",.0f");
+        var formatCount = Plotly.d3.format(",.0f");
 
         var margin = {top: 20, right: 300, bottom: 30, left: 30},
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
 
         var max = d3.max(values);
-        var min = d3.min(values);
-        var x = d3.scale.linear()
+        var min = Plotly.d3.min(values);
+        var x = Plotly.d3.scale.linear()
             .domain([0, 20])
             // .domain([min, max])
             .range([0, width]);
 
         // Generate a histogram using twenty uniformly-spaced bins.
-        var data = d3.layout.histogram()
+        var data = Plotly.d3.layout.histogram()
             .bins(x.ticks(20))
             (values);
 
-        var yMax = d3.max(data, function(d){return d.length});
-        var yMin = d3.min(data, function(d){return d.length});
-        var colorScale = d3.scale.linear()
+        var yMax = Plotly.d3.max(data, function(d){return d.length});
+        var yMin = Plotly.d3.min(data, function(d){return d.length});
+        var colorScale = Plotly.d3.scale.linear()
                     .domain([yMin, yMax])
                     .range([d3.rgb(color).brighter(), d3.rgb(color).darker()]);
 
-        var y = d3.scale.linear()
+        var y = Plotly.d3.scale.linear()
             .domain([0, yMax])
             .range([height, 0]);
 
-        var xAxis = d3.svg.axis()
+        var xAxis = Plotly.d3.svg.axis()
             .tickValues(d3.range(0, 21, 1))    
             .scale(x)
             .orient("bottom");
 
-        var yAxis = d3.svg.axis()
+        var yAxis = Plotly.d3.svg.axis()
             .tickValues(d3.range(0,10,1))  
             .scale(y)
             .orient("left");
 
         // var yAxis = d3.axisLeft(d3.range(0, yMax));
 
-        var svg = d3.select("#plot").append("svg")
+        var svg = Plotly.d3.select("#plot").append("svg")
         // var svg = d3.select("body").append("svg")
             .attr("width", width + margin.left + margin.right + 10)
             .attr("height", height + margin.top + margin.bottom + 10)
@@ -280,8 +285,8 @@ var url = "/by_game/columns"
                     .html('You have made ' + data.x + ' guesses! ' + (precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made same amount of guesses!') 
                     // We can also use HTML tags inside the html() method.
                     // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
-                    .style('left', d3.event.pageX + 'px')
-                    .style('top', d3.event.pageY + 'px');
+                    .style('left', Plotly.d3.event.pageX + 'px')
+                    .style('top', Plotly.d3.event.pageY + 'px');
                 }
 
                 else {
@@ -289,8 +294,8 @@ var url = "/by_game/columns"
                     .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made ' + data.x+ ' guesses!') 
                     // We can also use HTML tags inside the html() method.
                     // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
-                    .style('left', d3.event.pageX + 'px')
-                    .style('top', d3.event.pageY + 'px');
+                    .style('left', Plotly.d3.event.pageX + 'px')
+                    .style('top', Plotly.d3.event.pageY + 'px');
                 }
                 // div
                 //   .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' Of players made ' + data.x+ ' guesses!') 
