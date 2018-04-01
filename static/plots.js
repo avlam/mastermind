@@ -121,14 +121,13 @@ function precisionRound(number, precision) {
         height: 700,
         width: 800,
         margin: {
-            r: 100,
-            t: 100,
+            r: 200,
         },
         xaxis: {zeroline:false, showticklabels:false,
                     showgrid: false, range: [-1, 1]},
         yaxis: {zeroline:false, showticklabels:false,
                     showgrid: false, range: [-1, 1]}
-        };
+        }
     
         Plotly.newPlot('pin_diff', data, layout);
     
