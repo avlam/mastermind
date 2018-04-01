@@ -133,66 +133,7 @@ function precisionRound(number, precision) {
     
 })}
 
-    // function speedGauge(){
-    //     // Enter a speed between 0 and 180
-    //     var level = 130;
-    
-    //     // Trig to calc meter point
-    //     var degrees = 180 - level,
-    //         radius = .5;
-    //     var radians = degrees * Math.PI / 180;
-    //     var x = radius * Math.cos(radians);
-    //     var y = radius * Math.sin(radians);
-    
-    //     // Path: may have to change to create a better triangle
-    //     var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
-    //         pathX = String(x),
-    //         space = ' ',
-    //         pathY = String(y),
-    //         pathEnd = ' Z';
-    //     var path = mainPath.concat(pathX,space,pathY,pathEnd);
-    
-    //     var data = [{ type: 'scatter',
-    //     x: [0], y:[0],
-    //         marker: {size: 28, color:'850000'},
-    //         showlegend: false,
-    //         name: 'speed',
-    //         text: level,
-    //         hoverinfo: 'text+name'},
-    //     { values: [50/3, 50/3, 50/3,50],
-    //     rotation: 90,
-    //     text: ['Dwayne Johnson', 'Plane Jane', 'EZ-PZ', ''],
-    //     textinfo: 'text',
-    //     textposition:'inside',      
-    //     marker: {colors:['rgba(255, 0, 0, .9)', 'rgba(255, 190, 0, .9)',
-    //                             'rgba(255, 255, 0, .9)', 'rgba(255, 255, 255, 0)']},
-    //     labels: ['151-180', '121-150', '91-120',''],
-    //     hoverinfo: 'label',
-    //     hole: .5,
-    //     type: 'pie',
-    //     showlegend: false
-    //     }];
-    
-    //     var layout = {
-    //     shapes:[{
-    //         type: 'path',
-    //         path: path,
-    //         fillcolor: '850000',
-    //         line: {
-    //             color: '850000'
-    //         }
-    //         }],
-    //     title: '<b>Gauge</b> <br> Difficulty 0-3',
-    //     height: 700,
-    //     width: 900,
-    //     xaxis: {zeroline:false, showticklabels:false,
-    //                 showgrid: false, range: [-1, 1]},
-    //     yaxis: {zeroline:false, showticklabels:false,
-    //                 showgrid: false, range: [-1, 1]}
-    //     };
-    
-    //     Plotly.newPlot('speed', data, layout);
-    // };
+   
 
     function histotwo(last_player) {
         // console.log(url)
@@ -217,53 +158,53 @@ function precisionRound(number, precision) {
 
             // last_player = values[values.length - 1];
             console.log(last_player);
-            var div = Plotly.d3
+            var div = d3
             .select('body')
             .append('div')
             .attr('class', 'tooltip');  
 
             // A formatter for counts.
-            var formatCount = Plotly.d3.format(",.0f");
+            var formatCount = d3.format(",.0f");
 
             var margin = {top: 20, right: 300, bottom: 30, left: 30},
                 width = 960 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
             var max = d3.max(values);
-            var min = Plotly.d3.min(values);
-            var x = Plotly.d3.scale.linear()
+            var min = d3.min(values);
+            var x = d3.scale.linear()
                 .domain([0, 20])
                 // .domain([min, max])
                 .range([0, width]);
 
             // Generate a histogram using twenty uniformly-spaced bins.
-            var data = Plotly.d3.layout.histogram()
+            var data = d3.layout.histogram()
                 .bins(x.ticks(20))
                 (values);
 
-            var yMax = Plotly.d3.max(data, function(d){return d.length});
-            var yMin = Plotly.d3.min(data, function(d){return d.length});
-            var colorScale = Plotly.d3.scale.linear()
+            var yMax = d3.max(data, function(d){return d.length});
+            var yMin = d3.min(data, function(d){return d.length});
+            var colorScale = d3.scale.linear()
                         .domain([yMin, yMax])
                         .range([d3.rgb(color).brighter(), d3.rgb(color).darker()]);
 
-            var y = Plotly.d3.scale.linear()
+            var y = d3.scale.linear()
                 .domain([0, yMax])
                 .range([height, 0]);
 
-            var xAxis = Plotly.d3.svg.axis()
+            var xAxis = d3.svg.axis()
                 .tickValues(d3.range(0, 21, 1))    
                 .scale(x)
                 .orient("bottom");
 
-            var yAxis = Plotly.d3.svg.axis()
+            var yAxis = d3.svg.axis()
                 .tickValues(d3.range(0,10,1))  
                 .scale(y)
                 .orient("left");
 
             // var yAxis = d3.axisLeft(d3.range(0, yMax));
 
-            var svg = Plotly.d3.select("#plot").append("svg")
+            var svg = d3.select("#plot").append("svg")
             // var svg = d3.select("body").append("svg")
                 .attr("width", width + margin.left + margin.right + 10)
                 .attr("height", height + margin.top + margin.bottom + 10)
@@ -285,24 +226,18 @@ function precisionRound(number, precision) {
                         .html('You have made ' + data.x + ' guesses! ' + (precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made same amount of guesses!') 
                         // We can also use HTML tags inside the html() method.
                         // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
-                        .style('left', Plotly.d3.event.pageX + 'px')
-                        .style('top', Plotly.d3.event.pageY + 'px');
+                        .style('left', d3.event.pageX + 'px')
+                        .style('top', d3.event.pageY + 'px');
                     }
 
                     else {
                         return div
                         .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' of players made ' + data.x+ ' guesses!') 
-                        // We can also use HTML tags inside the html() method.
-                        // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
-                        .style('left', Plotly.d3.event.pageX + 'px')
-                        .style('top', Plotly.d3.event.pageY + 'px');
+                        
+                        .style('left', d3.event.pageX + 'px')
+                        .style('top', d3.event.pageY + 'px');
                     }
-                    // div
-                    //   .html((precisionRound(((data.y/values.length)*100),1)) + '%' + ' Of players made ' + data.x+ ' guesses!') 
-                    //   // We can also use HTML tags inside the html() method.
-                    //   // div.html("Pizzas eaten: <strong>" + pizzasEatenByMonth[i] + "</strong>");
-                    //   .style('left', d3.event.pageX + 'px')
-                    //   .style('top', d3.event.pageY + 'px');
+
                 })
                 // Step 4: Add an onmouseout event to make the tooltip invisible
                 .on('mouseout', function(data, index) {
