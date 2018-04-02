@@ -298,10 +298,10 @@ var $guess = d3
 var $headline = d3.select('#pw-display');
 $headline
     .append('h1')
-    .text('Guess My PIN !')
-//$headline
-//    .append('p')
-//    .text(`It's ${passwordLength} digits long, using 0-9 with potential repeats`);
+    .text('Guess My Password!')
+$headline
+    .append('p')
+    .text(`It's ${passwordLength} digits long, using 0-9 with potential repeats`);
 
 // Give up button
 var $forfeit = d3
