@@ -11,6 +11,12 @@ function generateHall(){
         .insert('p').text('Best Record:')
         .insert('p').text('Games Played:');
 
+    d3
+        .select('#HallOfFame')
+        .append('h1')
+        .style('font-size','1em')
+        .text('Hall of Fame');
+
     var chart = Plotly.d3
         .select("#hallOfFame")
         .append("svg")
@@ -72,7 +78,7 @@ function generateHall(){
                 // else{return 100+Math.floor(referenceRadius/d.bestRecord);} 
             })
             .attr("class", function(d) { return d.children ? "root" : "leaf"; })
-            .attr("fill", function(d){return `rgb(${128-(30*d.nGames)},${128+(30*d.nGames)},${128+(30*d.nGames)})`})
+            .attr("fill", function(d){return `rgb(${128-(15*d.nGames)},${128+(15*d.nGames)},${128+(15*d.nGames)})`})
             .attr("opacity", function(d) {return d.name=='root' ? 0 : 1;})
             .attr("stroke", "#ADADAD")
             .attr("stroke-width", 2)
