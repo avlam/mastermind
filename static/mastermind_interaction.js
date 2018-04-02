@@ -200,7 +200,11 @@ function endGame(){
     $forfeit.style('display','none');
     histotwo(guessCounter);
     pinGauge(password.join(''));
-    generateHall();
+    var thisGame={}
+    for(var i=0;i<Object.keys(game).length;i++){
+        thisGame[Object.keys(game)[i]] = game[Object.keys(game)[i]][-1];
+    }
+    generateHall(thisGame);
 }
 
 function colorFeedback(){
@@ -264,10 +268,10 @@ function colorGuess(){
 }
 
 // Script for page
-d3.select('body')
-    .insert('h1','div')
-    .attr('style','font-size:1em; background-color: #ff0800; text-align:center;')
-    .text('This game is in Beta. Come back again later for visualizations!')
+// d3.select('body')
+//     .insert('h1','div')
+//     .attr('style','font-size:1em; background-color: #ff0800; text-align:center;')
+//     .text('This game is in Beta. Come back again later for visualizations!')
 
 var password = generatePassword();
 // console.log(password);
