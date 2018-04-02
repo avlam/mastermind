@@ -1,18 +1,23 @@
 
-
 function generateHall(){
     const referenceRadius = 100;
-    const scale = 2000;
+    const scale = 1000;
     const threshold = 3 // cutoff of attempts to accept
-    var width = 960, height = 600;
+    var width = 450, height = 400;
+
+    d3
+        .select('#playerSummary')
+        .insert('p').text('Player Name:')
+        .insert('p').text('Best Record:')
+        .insert('p').text('Games Played:');
 
     var chart = Plotly.d3
         .select("#hallOfFame")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .append("g")
-        .attr("transform", `translate(${50},${50})`);
+        .append("g");
+        // .attr("transform", `translate(${50},${50})`);
 
     var pack = Plotly.d3.layout.pack()
         .size([width, height - 50])
@@ -67,14 +72,50 @@ function generateHall(){
                 // else{return 100+Math.floor(referenceRadius/d.bestRecord);} 
             })
             .attr("class", function(d) { return d.children ? "root" : "leaf"; })
-            .attr("fill", function(d){return `rgb(${256-2**d.nGames},${2**d.nGames},${0})`})
+            .attr("fill", function(d){return `rgb(${128-(30*d.nGames)},${128+(30*d.nGames)},${128+(30*d.nGames)})`})
             .attr("opacity", function(d) {return d.name=='root' ? 0 : 1;})
             .attr("stroke", "#ADADAD")
-            .attr("stroke-width", 2);
+            .attr("stroke-width", 2)
+            .on('mouseover',function(data){
+                if(data.name != 'root'){
+                    d3
+                        .select('#playerSummary')
+                        .html('')
+                        .insert('p').text(`Player Name: ${data.name}`)
+                        .insert('p').text(`Best Record: ${data.bestRecord}`)
+                        .insert('p').text(`Games Played: ${data.nGames}`);
+                }
+            })
+            .on('mouseout',function(data){
+                d3
+                    .select('#playerSummary')
+                    .html('')
+                    .insert('p').text(`Player Name: ${''}`)
+                    .insert('p').text(`Best Record: ${''}`)
+                    .insert('p').text(`Games Played: ${''}`);
+            });
 
         node.append("text")
-            .text(function(d) {return d.name=='root' ? '' : d.name;})
-            .attr('text-anchor','middle');
+            .text(function(d) {if(d.value >=100){return d.name=='root' ? '' : d.name;}})
+            .attr('text-anchor','middle')
+            .on('mouseover',function(data){
+                if(data.name != 'root'){
+                    d3
+                        .select('#playerSummary')
+                        .html('')
+                        .insert('p').text(`Player Name: ${data.name}`)
+                        .insert('p').text(`Best Record: ${data.bestRecord}`)
+                        .insert('p').text(`Games Played: ${data.nGames}`);
+                }
+            })
+            .on('mouseout',function(data){
+                d3
+                    .select('#playerSummary')
+                    .html('')
+                    .insert('p').text(`Player Name: ${''}`)
+                    .insert('p').text(`Best Record: ${''}`)
+                    .insert('p').text(`Games Played: ${''}`);
+            });
         
         console.log(nodes)
     });
