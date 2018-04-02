@@ -124,7 +124,7 @@ function precisionRound(number, precision) {
         height: 700,
         width: 800,
         margin: {
-            r: 200,
+            r: 100,
         },
         xaxis: {zeroline:false, showticklabels:false,
                     showgrid: false, range: [-1, 1]},

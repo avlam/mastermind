@@ -13,6 +13,8 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3.v3.min.js"></script>
+        <!-- Import simple stats -->
+        <script src="https://unpkg.com/simple-statistics@5.3.1/dist/simple-statistics.min.js"></script>
         <!-- Add style sheet -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mastermind_style.css') }}">
     </head>
@@ -26,7 +28,7 @@
                 </div>
             </div>
             <div id+"pin-rules" class= "col-md-12 " >
-                <h3> RULES : Guess a random 4-digit pin number. You can only use 0-9 digits in as few guesses as possible, no letters!</p>
+                <h3> RULES : Guess a random 4-digit number. Use digits 0-9, with repeats if necessary, in as few guesses as possible!</p>
             </div>
             <div class="row">
                 <div id="guess-result" class="col-md-12 text-center">
