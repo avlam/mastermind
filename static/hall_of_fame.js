@@ -92,7 +92,7 @@ function generateHall(thisGame){
             .attr("class", function(d) { return d.children ? "root" : "leaf"; })
             .attr("fill", function(d){return `rgb(${128-(15*d.nGames)},${128+(15*d.nGames)},${128+(15*d.nGames)})`})
             .attr("opacity", function(d) {return d.name=='root' ? 0 : 1;})
-            .attr("stroke", function(d){return d.name == thisGame.playerName ? `rgb(${255},${0},${0})`:"#ADADAD"})
+            .attr("stroke", function(d){return d.name == thisGame.player ? `rgb(${255},${0},${0})`:"#ADADAD"})
             .attr("stroke-width", 2)
             .on('mouseover',function(data){
                 if(data.name != 'root'){
