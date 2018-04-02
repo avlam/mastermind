@@ -1,5 +1,5 @@
 
-function generateHall(){
+function generateHall(thisGame){
     const referenceRadius = 100;
     const scale = 1000;
     const threshold = 3 // cutoff of attempts to accept
@@ -38,6 +38,16 @@ function generateHall(){
         // rearrange data into list of objects containing playername, best attempts, and number of games
         // console.log(data)
         var flatData = []
+        if(thisGame.rightDigitRightPlace == 4){
+            if(!Object.keys(data).includes(thisGame.playerName)){
+                flatData.push({
+                    'name': thisGame.player,
+                    'nGames': 1,
+                    'bestRecord': thisGame.guessNumber,
+                    value: scale*(2**(threshold-thisGame.guessNumber))
+                });
+            }
+        }
         for(var i=0; i<Object.keys(data).length; i++){
             if (data[Object.keys(data)[i]]['guesses_to_win'] > threshold){
                 flatData.push({
@@ -46,7 +56,7 @@ function generateHall(){
                     'bestRecord': data[Object.keys(data)[i]]['guesses_to_win'],
                     // value: data[Object.keys(data)[i]]['n_games']
                     value: scale*(2**(threshold-data[Object.keys(data)[i]]['guesses_to_win']))
-                })
+                });
             }
         }
     
