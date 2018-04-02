@@ -3,6 +3,9 @@ function precisionRound(number, precision) {
     return Math.round(number * factor) / factor;
   }
 
+  d3.json('/by_game/columns', function(response){
+    // if (error) return console.warn(error);
+    console.log(response)});
 // var url = "/by_game/columns"
 
 // Plotly.d3.json(url, function(error, response){
@@ -136,8 +139,8 @@ function precisionRound(number, precision) {
    
 
     function histotwo(last_player) {
-        // console.log(url)
-        d3.json('/by_game/columns', function(response){
+        var url = "https://ucbe-mastermind.herokuapp.com/by_game/columns"
+        d3.json(url, function(response){
             // if (error) return console.warn(error);
             console.log(response)
 
