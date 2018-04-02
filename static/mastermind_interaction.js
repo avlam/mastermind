@@ -204,8 +204,8 @@ function endGame(){
     for(var i=0;i<Object.keys(game).length;i++){
         thisGame[Object.keys(game)[i]] = game[Object.keys(game)[i]].slice(-1);
     }
-    console.log('this game:')
-    console.log(thisGame)
+    // console.log('this game:')
+    // console.log(thisGame)
     generateHall(thisGame);
 }
 
