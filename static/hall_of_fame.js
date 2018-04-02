@@ -12,9 +12,11 @@ function generateHall(){
         .insert('p').text('Games Played:');
 
     d3
-        .select('#HallOfFame')
+        .select('#hallOfFame')
         .append('h1')
-        .style('font-size','1em')
+        .style('font-size','1.5em')
+        .style('font-weight','bold')
+        .style('text-align','center')
         .text('Hall of Fame');
 
     var chart = Plotly.d3
@@ -23,7 +25,7 @@ function generateHall(){
         .attr("width", width)
         .attr("height", height)
         .append("g");
-        // .attr("transform", `translate(${50},${50})`);
+        // .attr("transform", `translate(${0},${50})`);
 
     var pack = Plotly.d3.layout.pack()
         .size([width, height - 50])
