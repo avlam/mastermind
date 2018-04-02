@@ -27,7 +27,7 @@
                     
                 </div>
             </div>
-            <div id+"pin-rules" class= "col-md-12 " >
+            <div id="pin-rules" class= "col-md-12 " >
                 <h3> RULES : Guess a random 4-digit number. Use digits 0-9 with repeats, if necessary, in as few guesses as possible!</p>
             </div>
             <div class="row">
@@ -37,6 +37,8 @@
             </div>
             <div class="row">
                 <div id="guess-history" class="col-md-5">
+                    <div id="hallOfFame"></div>
+                    <div id="playerSummary"></div>
                     <table class="table border text-center">
                         <thead>
                             <tr>
@@ -62,9 +64,9 @@
                     <div id="pin_diff"></div>
                 </div>
             </div>
-            <div class="row">
-                <div id="hallOfFame" class="col-md-12"></div>
-            </div>
+<!--            <div class="row">-->
+<!--                <div id="hallOfFame" class="col-md-12"></div>-->
+<!--            </div>-->
         </div>
         <script src="{{ url_for('static', filename='plots.js') }}" type="text/javascript"></script>
         <script src="{{ url_for('static', filename='hall_of_fame.js') }}" type="text/javascript"></script>
