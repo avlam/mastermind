@@ -41,7 +41,7 @@ function generateHall(thisGame){
         if(thisGame.rightDigitRightPlace == 4){
             if(!Object.keys(data).includes(thisGame.playerName)){
                 flatData.push({
-                    'name': thisGame.player,
+                    'name': thisGame.playerName,
                     'nGames': 1,
                     'bestRecord': thisGame.guessNumber,
                     value: scale*(2**(threshold-thisGame.guessNumber))
@@ -93,8 +93,8 @@ function generateHall(thisGame){
             .attr("fill", function(d){return `rgb(${128-(15*d.nGames)},${128+(15*d.nGames)},${128+(15*d.nGames)})`})
             .attr("opacity", function(d) {return d.name =='root' ? 0 : 1;})
             .attr("stroke", function(d){
-                console.log(`${d.name} : ${thisGame.player}`)
-                return d.name == thisGame.player ? "red" : "#ADADAD"
+                // console.log(`${d.name} : ${thisGame.player}`)
+                return d.name == thisGame.playerName ? "red" : "#ADADAD"
             })
             .attr("stroke-width", 2)
             .on('mouseover',function(data){
