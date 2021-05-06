@@ -3,4 +3,4 @@ flask>=1.0.0
 pandas==0.21.0
 gunicorn==19.7.1
 psycopg2==2.7.4
-flask_cors==3.0.3
+flask_cors==3.0.9
